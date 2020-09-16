@@ -20,7 +20,6 @@ body {
 }
 
 /*Estilizando o cabeçalho*/
-
 header {
     display: flex;
     align-items: center;
@@ -59,7 +58,6 @@ nav .pesquisa {
 }
 
 nav .pesquisa input {
- 
 
     font-style: normal;
     font-weight: 500;
@@ -79,8 +77,8 @@ nav .pesquisa button{
 }
 nav .pesquisa button img {
     object-fit: cover;
-    max-width: 1rem;
-    max-height: 1rem;
+    max-width: 1.5rem;
+    max-height: 1.5rem;
 
 }
 
@@ -89,6 +87,7 @@ header nav .prom,
 header nav .perfil {
     display: flex;
     align-items: center;
+    background-color: #0F1C26;
 }
 
 header nav .fav span,
@@ -113,7 +112,7 @@ header nav .perfil img {
     height: 56px;
 }
 
-/*Corpo*/
+/*Corpo da página*/
 
 /*Cupom*/
 
@@ -122,6 +121,9 @@ header nav .perfil img {
     background: linear-gradient(82.48deg, #FFE4F8 1.63%, #FFFFFF 69.09%);
     max-width: 960px;
     margin: 1.5rem auto 0;
+    background-repeat: no-repeat;
+
+    background-image: url(./images/background-cupom.svg);
 
 }
 .cupom .esquerda {
@@ -158,22 +160,38 @@ header nav .perfil img {
     margin-right: 8px;
 }
 
-
+.cupom span {
+    align-self: center;
+    opacity: 0.2;
+    border: 1px solid #F294D8;
+    height: 46px;
+    transform: rotate(180deg);
+}
 .cupom .direita {
+    position: relative;
+    flex: 1;
     display: flex;
     justify-content: space-between;
-    padding: 1.5rem;
+
+    padding: 1.5rem 0;
 }
-.cupom .direita .img {
+.cupom .direita > img {
     align-self: flex-end;
+    position: absolute;
+    top: -45px;
+    left: 45%;
+
+
 }
 
 .cupom .direita .info {
+    flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 0 1.5rem
 }
 
-.cupom .direita h3 {
+.cupom .direita .info h3 {
     font-family: 'Quantico';
     font-style: normal;
     font-weight: normal;
@@ -183,7 +201,8 @@ header nav .perfil img {
     opacity: 0.8;
     margin-bottom: 16px;
 }
-.cupom .direita h4 {
+.cupom .direita .info h4 {
+    
     display: flex;
 
     align-items: center;
@@ -199,9 +218,8 @@ header nav .perfil img {
 }
 
 .cupom .direita h4 img {
+
     margin-right: 10px;
+
 }
 
-.money-container {
-    display: flex;
-}
