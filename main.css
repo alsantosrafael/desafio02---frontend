@@ -1,0 +1,207 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family: 'Manrope', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Manrope', sans-serif;
+    background-color: #1D2226;
+
+}
+
+/*Estilizando o cabeçalho*/
+
+header {
+    display: flex;
+    align-items: center;
+
+    padding: 1rem;
+    background-color: #0F1C26;
+}
+.menu-logo {
+    display: flex;
+    padding: 1.125rem;
+    margin-right: 1.5rem;
+}
+.logo {
+    object-fit: cover
+}
+
+
+header nav {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+nav .pesquisa {
+    flex: 1;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    max-width: 440px;
+    padding: 1rem;
+    background: #171B1E;
+}
+
+nav .pesquisa input {
+ 
+
+    font-style: normal;
+    font-weight: 500;
+
+    font-size: 1rem;    
+    line-height: 150%;
+    color: #FDFDFD;
+    opacity: 0.8;
+    background: #171B1E;
+}
+
+nav .pesquisa button{
+    background-color: #171B1E;
+    padding: 0.5rem;
+
+    
+}
+nav .pesquisa button img {
+    object-fit: cover;
+    max-width: 1rem;
+    max-height: 1rem;
+
+}
+
+header nav .fav,
+header nav .prom,
+header nav .perfil {
+    display: flex;
+    align-items: center;
+}
+
+header nav .fav span,
+header nav .prom span,
+header nav .perfil span {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 150%;
+    color: #FDFDFD;
+}
+
+header nav .fav img,
+header nav .prom img {
+    margin-right: .8rem;
+}
+
+header nav .perfil img {
+    margin-left: .5rem;
+    object-fit: cover;
+    width: 56px;
+    height: 56px;
+}
+
+/*Corpo*/
+
+/*Cupom*/
+
+.cupom {
+    display: flex;
+    background: linear-gradient(82.48deg, #FFE4F8 1.63%, #FFFFFF 69.09%);
+    max-width: 960px;
+    margin: 1.5rem auto 0;
+
+}
+.cupom .esquerda {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+
+}
+.cupom .esquerda h2 {
+    font-family: 'Quantico';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 150%;
+    color: #0F0915;
+    opacity: 0.8;
+}
+.cupom .esquerda h4 {
+    display: flex;
+
+    align-items: center;
+
+    font-family: 'Quantico';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1rem;
+    line-height: 150%;
+    color: #0F0915;
+
+    opacity: 0.8;
+}
+
+.cupom .esquerda h4 img {
+    margin-right: 8px;
+}
+
+
+.cupom .direita {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+.cupom .direita .img {
+    align-self: flex-end;
+}
+
+.cupom .direita .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.cupom .direita h3 {
+    font-family: 'Quantico';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1.5rem;
+    line-height: 150%;
+    color: #0F0915;
+    opacity: 0.8;
+    margin-bottom: 16px;
+}
+.cupom .direita h4 {
+    display: flex;
+
+    align-items: center;
+
+    font-family: 'Quantico';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    color: #0F0915;
+
+    opacity: 0.8;
+}
+
+.cupom .direita h4 img {
+    margin-right: 10px;
+}
+
+.money-container {
+    display: flex;
+}
