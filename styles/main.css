@@ -115,7 +115,7 @@ article{
     background-repeat: no-repeat;
     background-size: contain;/*Posicionamento da imagem dentro do container*/
 
-    background-image: url(./images/background-cupom.svg);
+    background-image: url(/images/background-cupom.svg);
 
 }
 .cupom .esquerda {
@@ -215,7 +215,6 @@ article{
     margin: 0 auto;
 }
 .conteudo {
-
     max-width: 937px;
 }
 .top-filmes {
@@ -323,12 +322,11 @@ article{
 
     display: flex;
     align-items: center;
-
     flex-wrap: wrap;
 }
 
-
 .filme {
+    flex-wrap: wrap;
     height: 300px;
     width: 168px;
     margin-right: 1.5rem;
