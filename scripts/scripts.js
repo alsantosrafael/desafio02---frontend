@@ -1,6 +1,52 @@
+//Declarando funções
+//Função de retornar um JSON
 const fetchJson = (url) => {
     return fetch(url).then(resposta => resposta.json())
 }
+/*Temporizador para o banner */
+const cupom = document.querySelector(".cupom")
+let temporizador = document.querySelector(".info h4 > span")
+let sec = Number(temporizador.innerText.split(":")[2])
+let min = Number(temporizador.innerText.split(":")[1])
+
+
+const timer = () => {
+    if(min !== 0 && sec >= 0) {
+        if(sec === 0) {
+            min--
+            sec = 59
+            temporizador.innerText = `00:0${min}:${sec}`
+        } else {
+            sec--
+            sec <= 9 
+            ? temporizador.innerText = `00:0${min}:0${sec}` 
+            : temporizador.innerText = `00:0${min}:${sec}`
+        }
+    } else if (min === 0 && sec !== 0 ) {
+        sec--
+        sec <= 9 
+        ? temporizador.innerText = `00:0${min}:0${sec}` 
+        : temporizador.innerText = `00:0${min}:${sec}`
+
+    }else {
+        cupom.style.display = "none"
+        clearInterval(id);
+
+    }
+}
+/*Responsável por para setInterval do contador do cupom */
+const id = setInterval(timer, 1000)
+
+/*Auto-preencher input de cupom da sacola ao clicar no banner */
+document.querySelector("#ticket").value = '';
+cupom.addEventListener('click', () => {
+    const codigo = document.querySelector(".cupom .esquerda h4").innerText.split(": ")[1]
+    document.querySelector("#ticket").value = codigo;
+    clearInterval(id)
+    cupom.style.display = "none"
+})  
+
+
 
 const criarTopFilmes = (filme) => {
     const card = document.createElement("div")
@@ -14,14 +60,14 @@ const criarTopFilmes = (filme) => {
                 </div>
                 <footer>
                     <p>Sacola</p>
-                    <p>R$:<span> ${filme.price}</span></p>
+                    <p>R$:<span> ${filme.price.toFixed(2)}</span></p>
                 </footer>
             </div>
          `
-    card.style.backgroundImage = `url(${filme.poster_path})`
+    card.style.background = `url(${filme.poster_path})`
     card.style.backgroundSize = "cover"
     card.style.backgroundRepeat = "no-repeat"
-    card.style.backgroundO
+
     return card
 }
 
@@ -38,7 +84,7 @@ const criarFilmes = (filme) => {
                 </div>
                 <footer>
                     <p>Sacola</p>
-                    <p>R$:<span> ${filme.price}</span></p>
+                    <p>R$:<span> ${filme.price.toFixed(2)}</span></p>
                 </footer>
             </div>
          `
@@ -49,13 +95,19 @@ const criarFilmes = (filme) => {
     return card
 
 }
-//const topcards = document.querySelectorAll(".top-card")
 
+/*Fetch de filmes e lógica dos botões de gênero */
 const cardsTop = document.querySelector(".cards-top");
 const cardsFilme = document.querySelector(".filmes");
 const botoes = document.querySelectorAll(".botoes-filtro > button")
 
-
+const removeClasseActive = () => {
+    botoes.forEach(bot => {
+        if(bot.classList.contains("active")) {
+            bot.classList.remove("active")
+        }
+    })
+}
 
 fetchJson("https://tmdb-proxy-workers.vhfmag.workers.dev/3/discover/movie?language=pt-BR")
     .then(respostaJson => {
@@ -66,26 +118,35 @@ fetchJson("https://tmdb-proxy-workers.vhfmag.workers.dev/3/discover/movie?langua
          }
 
          /*Criando os filmes segundo o click*/
-         botoes.forEach(botao => {
-             botao.addEventListener('click', evento => {
-                 evento.target()
-                 if(botao.innerText === 'Todos'){
-                     botoes.forEach(botao.classList.remove('active'))
-                     botao.classList.add('active')
-                     for(let i = 0; i < 10; i++){
-                        let card = criarFilmes(respostaJson.results[i])
-                        cardsFilme.append(card)
-                     }
-                 } else if(botao.innerText === 'Ação') {
-                    botoes.forEach(botao.classList.remove('active'))
-                    botao.classList.add('active')
-                    //fetch(https://tmdb-proxy-workers.vhfmag.workers.dev/3/discover/movie?with_genres=<id do gênero>&language=pt-BR)
-                 }
-             })
-
-         })
-         for(let i = 0; i < 10; i++){
+        for(let i = 0; i < 20; i++){
             let card = criarFilmes(respostaJson.results[i])
             cardsFilme.append(card)
-         }
+        }
+         botoes.forEach(botao => {
+             botao.addEventListener('click', () => {
+                 removeClasseActive();
+                 botao.classList.add("active")
+                 cardsFilme.innerHTML = '';
+                 if(!botao.id) {
+                    for(let i = 0; i < 20; i++){
+                        card = criarFilmes(respostaJson.results[i])
+                        cardsFilme.append(card)
+                    }
+                 } else {
+                     fetchJson(`https://tmdb-proxy-workers.vhfmag.workers.dev/3/discover/movie?with_genres=${botao.id}&language=pt-BR`)
+                        .then(filmesGenero => {
+                            for(let i = 0; i < 20; i++) {
+                                let card = criarFilmes(filmesGenero.results[i])
+                                cardsFilme.append(card)
+                            }
+                        })
+                    }
+                })
+         })
     })
+
+
+    
+
+//Criar uma ou mais funções da lógica da sacola
+//Adicionar ouvintes de eventos nos filmes - no then
