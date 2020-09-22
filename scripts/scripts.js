@@ -1,5 +1,6 @@
 let sacolaFilmes = []; //Lista de filmes
 const sidenav = document.querySelector(".sidenav");
+let voucher;
 //Declarando funções
 //Função de retornar um JSON
 const inputs = document.getElementsByTagName("input");
@@ -16,6 +17,7 @@ const somaFinal = (sacolaFilmes) => {
 };
 /*Preenchendo Sidenav com lista vazia */
 const criaSacolaVazia = () => {
+
   const sacola = document.createElement("div");
   sacola.classList.add("resto");
   sacola.innerHTML = `                <h3>Sua sacola está vazia</h3>
@@ -49,33 +51,19 @@ const criaSacola = () => {
   document.querySelector("#confirma-dados").onclick = () => {
     const sacolaFinal = JSON.stringify(sacolaFilmes);
     localStorage.setItem("filmes", sacolaFinal);
-    const voucher = document.querySelector("#ticket").value;
+
 
     localStorage.setItem("cupom", voucher);
     location.href = "http://127.0.0.1:5500/cadastro.html";
   };
-  /**FALTA CORRIGIR A QUESTÃO DO CÓDIGO de DESCONTO */
-};
-//REVER
-const atualizaItemSacola = (index) => {
-  const filme = sacolaFilmes[index];
 
-  console.log(filme.id);
-  console.log(
-    document.querySelector(`.resto`).querySelector(`#A${filme.id.toString()}`)
-  );
-
-  somaFinal(sacolaFilmes);
 };
 
-/*Quando reduzir a quantidade de um filme
-preciso reduzir a quantidade no objeto do filme no array
-preciso atualizar o valor na sidenav da sacola
-preciso atulizar a quantidade no item na sidenav na sacola
-se qtd === 0 preciso excluir o item da sacola  */
 
 const criaItemNaSacola = () => {
-  somaFinal(sacolaFilmes);
+  if(voucher !== undefined) {
+    document.querySelector("#ticket").value = voucher
+  }
   const sacola = document.querySelector(".resto div");
   const containerSacola = document.querySelector(".container-sacola");
   containerSacola.innerHTML = "";
@@ -106,7 +94,11 @@ const criaItemNaSacola = () => {
 
     // containerSacola.insertBefore(item, sacola.childNodes[0]);
     containerSacola.append(item);
-    document.querySelector("#confirma-dados span").innerText = `R$: ${somaFinal(sacolaFilmes)}`;
+    if(document.querySelector("#ticket").value === 'HTMLNAOELINGUAGEM') {
+      document.querySelector("#confirma-dados span").innerText= `R$: ${(somaFinal(sacolaFilmes)*0.9).toFixed(2)}`
+    } else {
+      document.querySelector("#confirma-dados span").innerText= `R$: ${somaFinal(sacolaFilmes).toFixed(2)}`
+    }
     item.querySelector(".deletar").addEventListener("click", (event) => {
 
       const filmeId = event.currentTarget.closest(".item").id.substr(1);
@@ -129,7 +121,7 @@ const criaItemNaSacola = () => {
           sacolaFilmes[index].qtd++;
           // atualizaItemSacola(index)
           criaItemNaSacola();
-          somaFinal(sacolaFilmes);
+
         }
       });
     });
@@ -179,6 +171,12 @@ cupom.addEventListener("click", () => {
   document.querySelector("#ticket").value = codigo;
   clearInterval(id);
   cupom.style.display = "none";
+  voucher = document.querySelector("#ticket").value;
+  if(document.querySelector("#ticket").value === 'HTMLNAOELINGUAGEM') {
+    document.querySelector("#confirma-dados span").innerText= `R$: ${(somaFinal(sacolaFilmes)*0.9).toFixed(2)}`
+  } else {
+    document.querySelector("#confirma-dados span").innerText= `R$: ${somaFinal(sacolaFilmes).toFixed(2)}`
+  }
 });
 
 const criarTopFilmes = (filme) => {
@@ -331,9 +329,8 @@ fetchJson(
   });
 });
 
-/*Dúvidas: Como redirecionar a pagina ao clicar no botão levando os dados
+/*Dúvidas: 
 Como fazer cada item ser obrigatório no cadastro
-como adicionar ouvinte de evento aos botoes de adicionar e deletar quantidade de filme
 como colocar a borda no pai do input com focus com toggle 
 Terminar todos os hovers
 Não Entendi o modelo de pseudo-classe inactive no figma*/
