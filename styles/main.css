@@ -9,6 +9,9 @@
     box-sizing: border-box;
     font-family: 'Manrope', sans-serif;
 }
+ul li {
+    list-style-type: none;
+}
 
 body {
     min-height: 100vh;
@@ -61,6 +64,14 @@ header nav .pesquisa input {
     color: #FDFDFD;
     opacity: 0.8;
     background: #171B1E;
+}
+
+
+header nav .pesquisa:hover {
+    border: 1px solid #8C8C8C;
+}
+header nav .pesquisa:focus input{
+    border: 1px solid #FDFDFD;
 }
 
 nav .pesquisa button{
@@ -246,14 +257,15 @@ opacity: 0.8;
 }
 
 .top-card {
-    height: 301px;
+
     width: 168px;
     flex: 1;
 }
 
 .card-content {
-    height: 301px;
+    height: 270px;
     width: 169px;
+    background-position: center;
     flex: 1;
     display:flex;
     flex-direction: column;
@@ -396,13 +408,13 @@ opacity: 0.8;
 }
 
 .filme {
-    height: 301px;
+
     width: 168px;
     margin-bottom: 1.5rem;
 
 }
 .filme .card-content {
-    height: 301px;
+    height: 270px;
     width: 168px;
     flex: 1;
     display:flex;
@@ -468,6 +480,13 @@ opacity: 0.8;
     font-weight: bold;
     font-size: 12px;
     line-height: 150%;
+}
+
+.filme .card-content footer:hover {
+    
+    background: linear-gradient(0deg, rgba(46, 46, 46, 0.45), rgba(46, 46, 46, 0.45)), #A785ED;
+
+    color: #EEE6FF;
 }
 
 /*Barra lateral*/
@@ -541,7 +560,7 @@ opacity: 0.8;
     align-items: center;
     justify-content: space-between;
     background: #0B1217;
-    padding: .5rem 1rem;
+    padding: .5rem 1rem .5rem 0;
 }
 
 .sidenav .resto label input {
@@ -553,7 +572,71 @@ opacity: 0.8;
     opacity: 0.4;
 }
 
+/*Ao criar a sacola de compras*/
+.resto div > .item {
 
+    display: flex;
+
+    justify-content: space-between;
+
+    color: white;
+    margin-bottom: 10px;
+}
+
+.resto div > .item .dados {
+    display: flex;
+    align-items: center;
+    max-width: 180px;
+}
+
+.resto div > .item .dados div + div {
+    margin-left: 13px;
+}
+.resto div > .item .dados div p + p{
+    margin-top: 8px;
+}
+.resto div > .item .dados img{
+    width: 50px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.resto div > .item .opt {
+    display: flex;
+    align-items: center;
+    max-width: 86px;
+    flex: 1;
+    justify-content: space-between;
+}
+.resto div > .item .opt button {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.37), rgba(0, 0, 0, 0.37));
+backdrop-filter: blur(15px);
+}
+
+.resto > div > button {
+    text-align: center;
+    background: #E25EBF;
+    width: 280px;
+    padding: 1rem;
+
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 150%;
+    
+    cursor: pointer;
+    
+    color: #FDFDFD;
+}
+
+.resto > div > button:hover{
+    background: linear-gradient(0deg, rgba(225, 123, 123, 0.45), rgba(225, 123, 123, 0.45)), #FFB6EB;
+box-shadow: 0px 16px 24px -12px rgba(226, 94, 191, 0.16);
+transition: 400ms;
+}
+.resto > div > button:active{
+    background: linear-gradient(0deg, rgba(225, 123, 123, 0.6), rgba(225, 123, 123, 0.6)), #FFB6EB;
+    box-shadow: 0px 16px 24px -12px rgba(226, 94, 191, 0.5);
+}
 
 
 
