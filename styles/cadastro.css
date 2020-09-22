@@ -67,7 +67,66 @@ body {
     border: 1px solid #8C8C8C;
 }
 
-.forms form div label div:focus input{
+.forms form div label div input:focus{
 
     border: 1px solid #FDFDFD;
 }
+
+.sidenav .resto {
+    display: flex;
+    flex-direction: column;
+
+    padding: 2rem 1rem;
+    
+    background: #0B1217;
+}
+
+.sidenav .resto h3{
+
+    align-self: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 150%;  
+
+    color: #FDFDFD;
+    margin-bottom: 6px;
+}
+
+.sidenav .resto > p {
+
+
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    text-align: center;
+    color: #FDFDFD;
+
+    opacity: 0.8;
+}
+
+.sidenav .resto h5 {
+    text-align: left;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 150%;
+    color: #FDFDFD;
+}
+
+.sidenav .resto label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0B1217;
+    padding: .5rem 1rem .5rem 0;
+}
+
+.sidenav .resto label input {
+    background: #0B1217;
+
+    font-size: 1rem;
+    line-height: 150%;
+    color: #FDFDFD;
+    opacity: 0.4;
+}
+

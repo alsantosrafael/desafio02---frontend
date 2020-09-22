@@ -4,20 +4,7 @@ const sidenav = document.querySelector(".sidenav");
 //Função de retornar um JSON
 const inputs = document.getElementsByTagName("input");
 
-/*REVER COMO FAZER TOGGLE DE INPUT*/
-for (const input of inputs) {
-  if(input.parentElement.style.border === '') {
-    input.addEventListener("focus", () => {
-      input.parentElement.style.border = "1px solid #FDFDFD ";/*REVER */
-    });
-  } else {
-    input.addEventListener("focusout", () => {
-      input.parentElement.style.border = "";/*REVER */
-    });
-  }
 
-
-}
 const fetchJson = (url) => {
   return fetch(url).then((resposta) => resposta.json());
 };
@@ -40,7 +27,7 @@ const criaSacolaVazia = () => {
       <label for="ticket">
           <input id="ticket" name="ticket" type="text" placeholder="Cupom de desconto">
           <img src="./images/Ticket.svg" alt="">
-      </label>`
+      </label>`;
   return sacola;
 };
 const criaSacola = () => {
@@ -49,45 +36,105 @@ const criaSacola = () => {
     const sacola = criaSacolaVazia();
     return sacola;
   } else {
-    const cod = document.querySelector(".resto label input").value
-    sacola.innerHTML = `<div><h5>Insira seu cupom</h5>
+    const cod = document.querySelector(".resto label input").value;
+    sacola.innerHTML = `<div><div class="container-sacola"></div><h5>Insira seu cupom</h5>
     <label for="ticket">
         <input id="ticket" name="ticket" type="text" placeholder="Cupom de desconto">
         <img src="./images/Ticket.svg" alt="">
     </label>
-    <button>Confirme seus Dados <span>R$  ${somaFinal(sacolaFilmes)}</span></button></div>`;
+    <button id="confirma-dados" type="submit" >Confirme seus Dados <span>R$  ${somaFinal(
+      sacolaFilmes
+    )}</span></button></div>`;
   }
-/**FALTA CORRIGIR A QUESTÃO DO CÓDIGO de DESCONTO */
+  document.querySelector("#confirma-dados").onclick = () => {
+    const sacolaFinal = JSON.stringify(sacolaFilmes);
+    localStorage.setItem("filmes", sacolaFinal);
+    const voucher = document.querySelector("#ticket").value;
 
+    localStorage.setItem("cupom", voucher);
+    location.href = "http://127.0.0.1:5500/cadastro.html";
+  };
+  /**FALTA CORRIGIR A QUESTÃO DO CÓDIGO de DESCONTO */
+};
+//REVER
+const atualizaItemSacola = (index) => {
+  const filme = sacolaFilmes[index];
+
+  console.log(filme.id);
+  console.log(
+    document.querySelector(`.resto`).querySelector(`#A${filme.id.toString()}`)
+  );
+
+  somaFinal(sacolaFilmes);
 };
 
+/*Quando reduzir a quantidade de um filme
+preciso reduzir a quantidade no objeto do filme no array
+preciso atualizar o valor na sidenav da sacola
+preciso atulizar a quantidade no item na sidenav na sacola
+se qtd === 0 preciso excluir o item da sacola  */
+
 const criaItemNaSacola = () => {
-  const sacola = document.querySelector(".resto div")
-  const containerSacola = document.querySelector(".resto > div")
+  somaFinal(sacolaFilmes);
+  const sacola = document.querySelector(".resto div");
+  const containerSacola = document.querySelector(".container-sacola");
+  containerSacola.innerHTML = "";
   for (let i = 0; i < sacolaFilmes.length; i++) {
     const item = document.createElement("div");
     item.classList.add("item");
+    item.id = `A${sacolaFilmes[i].id.toString()}`;
+
     item.innerHTML = `
     <div class="dados">
         <div>
-          <img src=${sacolaFilmes[i].urlImg.replace(/(url\(|\)|")/g, '')} alt="">
+          <img src=${sacolaFilmes[i].urlImg.replace(
+            /(url\(|\)|")/g,
+            ""
+          )} alt="">
         </div>
         <div>
           <p>${sacolaFilmes[i].titulo}</p>
-          <p>R$${sacolaFilmes[i].preco}</p>
+          <p id=preco>R$${sacolaFilmes[i].preco}</p>
         </div>
     </div>
 
     <div class="opt">
       <button class="adicionar" ><img src="./images/add.svg" alt=""></button>
-      <p>${sacolaFilmes[i].qtd}</p>
+      <p class="qtd">${sacolaFilmes[i].qtd}</p>
       <button class="deletar"><img src="./images/delete.svg"  alt=""></button>
     </div>`;
-    containerSacola.insertBefore(item, sacola.childNodes[0]);
 
+    // containerSacola.insertBefore(item, sacola.childNodes[0]);
+    containerSacola.append(item);
+    document.querySelector("#confirma-dados span").innerText = `R$: ${somaFinal(sacolaFilmes)}`;
+    item.querySelector(".deletar").addEventListener("click", (event) => {
+
+      const filmeId = event.currentTarget.closest(".item").id.substr(1);
+      sacolaFilmes.forEach((filme, index) => {
+        if (filme.id === filmeId) {
+          filme.qtd--;
+          criaItemNaSacola();
+        }
+        if (filme.qtd === 0) {
+          sacolaFilmes.splice(index, 1)
+          criaItemNaSacola();
+        }
+      });
+
+    });
+    item.querySelector(".adicionar").addEventListener("click", (event) => {
+      const filmeId = event.currentTarget.closest(".item").id.substr(1);
+      sacolaFilmes.forEach((filme, index) => {
+        if (filme.id === filmeId) {
+          sacolaFilmes[index].qtd++;
+          // atualizaItemSacola(index)
+          criaItemNaSacola();
+          somaFinal(sacolaFilmes);
+        }
+      });
+    });
   }
-
-}
+};
 /*Temporizador para o banner */
 const cupom = document.querySelector(".cupom");
 let temporizador = document.querySelector(".info h4 > span");
@@ -133,13 +180,6 @@ cupom.addEventListener("click", () => {
   clearInterval(id);
   cupom.style.display = "none";
 });
-
-/* Algoritmo para a sacola de filmes:
-    Checar se existe algum filme na sacola, se não existir, mostrar configuração padrão de sacola vazia
-    Ao clicar em um card de um filme, devo criar uma ul com um li com o filme, botao de +, da lixeira e no meio a quantidade
-    card tem imagem, titulo e preço
-    crio o botão de confirmar dados
-     */
 
 const criarTopFilmes = (filme) => {
   const card = document.createElement("div");
@@ -207,10 +247,10 @@ const removeClasseActive = () => {
 };
 
 const addFilmeSacola = (seletor) => {
+  somaFinal(sacolaFilmes);
   const listaFilmes = document.querySelectorAll(`.${seletor}`);
   listaFilmes.forEach((filme) => {
     filme.addEventListener("click", () => {
-      console.log(filme);
       if (sacolaFilmes.length === 0) {
         sacolaFilmes.push({
           id: filme.id,
@@ -219,12 +259,12 @@ const addFilmeSacola = (seletor) => {
           urlImg: filme.style.backgroundImage,
           qtd: 1,
         });
-        criaSacola()
-        criaItemNaSacola()
+        criaSacola();
+        criaItemNaSacola();
       } else {
         let flag = false;
         const id = filme.id;
-        console.log(id);
+
         sacolaFilmes.forEach((film, ind) => {
           if (film.id === id) {
             sacolaFilmes[ind].qtd += 1;
@@ -240,10 +280,9 @@ const addFilmeSacola = (seletor) => {
             qtd: 1,
           });
         }
-        criaSacola()
-        criaItemNaSacola()
+        criaSacola();
+        criaItemNaSacola();
       }
-      console.log(sacolaFilmes);
     });
   });
 };
@@ -292,10 +331,9 @@ fetchJson(
   });
 });
 
-
 /*Dúvidas: Como redirecionar a pagina ao clicar no botão levando os dados
-Como manter o codigo e desconto e aplicar no final
 Como fazer cada item ser obrigatório no cadastro
 como adicionar ouvinte de evento aos botoes de adicionar e deletar quantidade de filme
 como colocar a borda no pai do input com focus com toggle 
-Terminar todos os hovers*/
+Terminar todos os hovers
+Não Entendi o modelo de pseudo-classe inactive no figma*/

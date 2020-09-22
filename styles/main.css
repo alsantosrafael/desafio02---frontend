@@ -610,10 +610,22 @@ opacity: 0.8;
 }
 .resto div > .item .opt button {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.37), rgba(0, 0, 0, 0.37));
+    backdrop-filter: blur(15px);
+    cursor: pointer;
+}
+
+.resto div > .item .opt button:hover {
+    background: linear-gradient(0deg, rgba(107, 107, 107, 0.37), rgba(107, 107, 107, 0.37));
+    backdrop-filter: blur(15px);
+}
+.resto div > .item .opt button:active {
+background: linear-gradient(0deg, rgba(191, 191, 191, 0.37), rgba(191, 191, 191, 0.37));
 backdrop-filter: blur(15px);
 }
 
 .resto > div > button {
+    display: flex;
+    justify-content: space-between;
     text-align: center;
     background: #E25EBF;
     width: 280px;
