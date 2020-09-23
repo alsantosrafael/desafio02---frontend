@@ -58,7 +58,15 @@ const criaSacola = () => {
   };
 
 };
+/*Função para mudar icone de excluir item */
+const mudaIcone = (qtd) => {
+  if(Number(qtd) > 1) {
+    return "./images/menos.svg"
+  } else {
+    return "./images/delete.svg"
+  }
 
+}
 
 const criaItemNaSacola = () => {
   if(voucher !== undefined) {
@@ -89,11 +97,12 @@ const criaItemNaSacola = () => {
     <div class="opt">
       <button class="adicionar" ><img src="./images/add.svg" alt=""></button>
       <p class="qtd">${sacolaFilmes[i].qtd}</p>
-      <button class="deletar"><img src="./images/delete.svg"  alt=""></button>
+      <button class="deletar"><img src=${mudaIcone(sacolaFilmes[i].qtd)}  alt=""></button>
     </div>`;
+    "./images/delete.svg"
 
-    // containerSacola.insertBefore(item, sacola.childNodes[0]);
     containerSacola.append(item);
+
     if(document.querySelector("#ticket").value === 'HTMLNAOELINGUAGEM') {
       document.querySelector("#confirma-dados span").innerText= `R$: ${(somaFinal(sacolaFilmes)*0.9).toFixed(2)}`
     } else {
@@ -102,14 +111,17 @@ const criaItemNaSacola = () => {
     item.querySelector(".deletar").addEventListener("click", (event) => {
 
       const filmeId = event.currentTarget.closest(".item").id.substr(1);
+
       sacolaFilmes.forEach((filme, index) => {
         if (filme.id === filmeId) {
           filme.qtd--;
           criaItemNaSacola();
+          
         }
         if (filme.qtd === 0) {
           sacolaFilmes.splice(index, 1)
           criaItemNaSacola();
+         
         }
       });
 
@@ -119,7 +131,6 @@ const criaItemNaSacola = () => {
       sacolaFilmes.forEach((filme, index) => {
         if (filme.id === filmeId) {
           sacolaFilmes[index].qtd++;
-          // atualizaItemSacola(index)
           criaItemNaSacola();
 
         }

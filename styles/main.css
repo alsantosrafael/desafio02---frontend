@@ -226,7 +226,7 @@ opacity: 0.8;
 .corpo {
     display: flex;
     justify-content: space-between;
-
+    flex-wrap: wrap;
     max-width: 1300px;
     margin: 0 auto;
 }
@@ -339,6 +339,7 @@ opacity: 0.8;
 .lista-filmes {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 
 }
 .lista-filmes h2 {
@@ -350,7 +351,7 @@ opacity: 0.8;
     margin-bottom: 1rem;
 }
 .botoes-filtro {
-
+    flex-wrap: wrap;
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.5rem;
@@ -411,6 +412,7 @@ opacity: 0.8;
 
     width: 168px;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
 
 }
 .filme .card-content {
@@ -493,6 +495,7 @@ opacity: 0.8;
 .sidenav{
     flex: 1;
     max-width: 312px;
+    flex-wrap: wrap;
 
 }
 .sidenav .sacola {
@@ -501,6 +504,7 @@ opacity: 0.8;
     align-items: center;
     background: linear-gradient(0deg, #A785ED, #A785ED), #C4C4C4;
     padding: 18px;
+    flex-wrap: wrap;
 }
 
 .sidenav .sacola span {

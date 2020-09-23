@@ -48,7 +48,7 @@ body {
     margin-bottom: 38px;
 }
 
-.forms form div label div {
+.forms form div label input {
     flex: 1;
     display: flex;
     width: 328px;
@@ -62,12 +62,12 @@ body {
     color: white;
 }
 
-.forms form div label div:hover{
+.forms form div label input:hover{
     background: #0B1217;
     border: 1px solid #8C8C8C;
 }
 
-.forms form div label div input:focus{
+.forms form div label input:focus{
 
     border: 1px solid #FDFDFD;
 }

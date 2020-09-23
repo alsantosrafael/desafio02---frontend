@@ -135,6 +135,7 @@ const botao = document.querySelector("#confirma-dados")
 botao.addEventListener('click', () => {
   console.log(validaFormulario())
   if(sacolaFilmes.length === 0) {
+    alert('Como sua sacola está vazia, iremos te redirecionar para a home!')
     window.location.href = "http://127.0.0.1:5500/index.html"
 
   } else if (validaFormulario()) {
@@ -146,24 +147,6 @@ botao.addEventListener('click', () => {
 
 })
 
-/*Como travar os inputs? */
-// const testaInputs = () => {
-//   if
-
-//   if(sacolaFilmes.length === 0) {
-//     document.querySelector("#confirma-dados").disabled = false;
-//     
-
-// } else {
-//     if(flagInputs === inputs.length) {
-//         document.querySelector("#confirma-dados").disabled = false;
-//         document.querySelector("#confirma-dados").onclick = () => location.href = "http://127.0.0.1:5500/sucesso.html"
-//         console.log('Sucesso!')
-//     }
-
-// }
-
-// }
 
 
 
