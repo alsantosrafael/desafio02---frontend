@@ -65,7 +65,6 @@ const mudaIcone = (qtd) => {
   } else {
     return "./images/delete.svg"
   }
-
 }
 
 const criaItemNaSacola = () => {

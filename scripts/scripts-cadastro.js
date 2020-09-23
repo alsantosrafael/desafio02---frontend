@@ -5,6 +5,14 @@ const somaFinal = (sacolaFilmes) => {
     return resultado;
   };
 
+const mudaIcone = (qtd) => {
+  if(Number(qtd) > 1) {
+    return "./images/menos.svg"
+  } else {
+    return "./images/delete.svg"
+  }
+}
+
 const criaSacola = () => {
 
     const sacola = document.createElement("div");
@@ -31,7 +39,7 @@ const criaItemNaSacola = (filme) => {
   }
     const sacola = document.querySelector(".resto div")
     const containerSacola = document.querySelector(".container-sacola")
-    // containerSacola.innerHTML = ''
+
       const item = document.createElement("div");
       item.classList.add("item");
       item.id = `A${filme.id.toString()}`;
@@ -50,7 +58,7 @@ const criaItemNaSacola = (filme) => {
       <div class="opt">
         <button class="adicionar" ><img src="./images/add.svg" alt=""></button>
         <p class="qtd">${filme.qtd}</p>
-        <button class="deletar"><img src="./images/delete.svg"  alt=""></button>
+        <button class="deletar"><img src=${mudaIcone(filme.qtd)}  alt=""></button>
       </div>`;
   
     containerSacola.append(item)
